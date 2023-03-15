@@ -26,7 +26,7 @@ class BlogsController < ApplicationController
 
   def create
     @blog = Blog.new(blog_params)
-    @post.user_id = current_user.id
+    @blog.user_id = current_user.id
 
     respond_to do |format|
       if @blog.save
