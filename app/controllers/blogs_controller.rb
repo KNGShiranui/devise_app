@@ -3,7 +3,10 @@ class BlogsController < ApplicationController
   before_action :authenticate_user!,  only: [:new, :edit, :update, :destroy]  # こうすると未ログインでも閲覧だけは可能
 
   def index
-    @blogs = Blog.all
+    @blogs = Blog.all.order(created_at: :desc).page(params[:page])
+    # ページネーション導入
+    # @blogs = Blog.all.includes(:user).order(created_at: :desc).page(params[:page])
+    # お試し実装なのでここまでしなくてOK。
   end
 
   def show
