@@ -6,6 +6,7 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'rexml'
 gem 'rails_admin'
+gem 'cancancan'
 
 gem 'rails', '~> 6.1.6'
 gem 'pg', '~> 1.1'
