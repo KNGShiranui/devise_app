@@ -10,6 +10,11 @@ class BlogsController < ApplicationController
   end
 
   def show
+    if @blog.status_private? && @blog.user != current_user
+      respond_to do |format|
+        format.html { redirect_to blogs_path, notice: 'このページにはアクセスできません' }
+      end
+    end
   end
 
   def new
@@ -21,10 +26,11 @@ class BlogsController < ApplicationController
 
   def create
     @blog = Blog.new(blog_params)
+    @blog.user_id = current_user.id
 
     respond_to do |format|
       if @blog.save
-        format.html { redirect_to blog_url(@blog), notice: "Blog was successfully created." }
+        format.html { redirect_to blog_url(@blog), notice: "新規投稿を行いました。" }
         format.json { render :show, status: :created, location: @blog }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -60,6 +66,8 @@ class BlogsController < ApplicationController
   end
 
   def blog_params
-    params.require(:blog).permit(:title, :content)
+    params.require(:blog).permit(:title, :content, :status)
+    # params.require(:blog).permit(:title, :content, :status, {:cat_ids => []})
+    # のようにするとcategoryのidも受け渡しできるようになる。今回は未使用。
   end
 end
