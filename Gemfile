@@ -8,6 +8,7 @@ gem 'rexml'
 gem 'rails_admin'
 gem 'cancancan'
 gem 'kaminari'
+gem 'bootstrap4-kaminari-views'
 
 
 gem 'rails', '~> 6.1.6'
