@@ -1,6 +1,6 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: %i[show edit update destroy]
-  before_action :authenticate_user!, only: %i[new create]
+  before_action :authenticate_user!,  only: [:new, :edit, :update, :destroy]  # こうすると未ログインでも閲覧だけは可能
 
   def index
     @blogs = Blog.all
